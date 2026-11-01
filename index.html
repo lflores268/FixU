@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FixU - Car Repairs Made Simple</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+    <header>
+        <h1>FixU</h1>
+        <p>Car repairs shouldn't require a degree!</p>
+    </header>
+
+    <main>
+        <h2>Understand Your Repair Estimate</h2>
+        <p>Enter your car information and repair costs below.</p>
+
+        <form id="repairForm">
+            <h3>Vehicle Information</h3>
+
+            <label for="year">Car Year:</label>
+            <input type="number" id="year" placeholder="2008" required>
+
+            <label for="make">Car Make:</label>
+            <input type="text" id="make" placeholder="Honda" required>
+
+            <label for="model">Car Model:</label>
+            <input type="text" id="model" placeholder="Civic" required>
+
+            <h3>Repair Estimate</h3>
+
+            <label for="repair">Repair Type:</label>
+            <select id="repair" required>
+                <option value="brakes">Brake Pad Replacement</option>
+                <option value="battery">Battery Replacement</option>
+                <option value="alternator">Alternator Replacement</option>
+                <option value="oil">Oil Change</option>
+                <option value="ac">AC Compressor Replacement</option>
+            </select>
+
+            <button type="submit">Show My Repair Information</button>
+        </form>
+
+        <section id="results" hidden>
+            <h2>Your Repair Breakdown</h2>
+            <p id="vehicleResult"></p>
+            <h3 id="repairName"></h3>
+            <p id="repairExplanation"></p>
+            <p id="costBreakdown"></p>
+            <p>These are sample costs for demonstration only.
+            Actual repair prices depend on your vehicle, location,
+            and mechanic.</p>
+            <h3>Question to Ask Your Mechanic</h3>
+            <p id="mechanicQuestion"></p>
+        </section>
+    </main>
+
+</body>
+</html>
