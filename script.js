@@ -142,7 +142,42 @@ const warningData=[
  ['⚡','EV / hybrid high-voltage warning','Potential traction battery or drivetrain fault. Follow the vehicle’s warning instructions; do not touch orange high-voltage cables.'],
  ['♨','Coolant / thermal management','Temperature or cooling fault may affect an engine, EV battery, or inverter. Stop if overheating or reduced-power warnings direct you to.']
 ];
-function buildLights(){const area=$('warningLights');for(const [icon,title,desc] of warningData){const card=document.createElement('article');card.className='info-card';const b=document.createElement('div');b.className='warning-icon';b.textContent=icon;const h=document.createElement('h4');h.textContent=title;const p=document.createElement('p');p.textContent=desc;card.append(b,h,p);area.append(card);}}
+// Clean, original vector dashboard symbols based on common instrument-cluster conventions.
+// These are not cropped from the reference infographic; exact symbols vary by manufacturer.
+const warningVectors=[
+ // Engine silhouette
+ '<path d="M10 20h8l5-5h13v6h7l5 6v18H11l-6-6V26h5z"/><path d="M20 15v-5h15M28 15v-5"/>',
+ // Oil can and droplet
+ '<path d="M8 26h30l8-8 4 4-7 8v11H15L8 35z"/><path d="M15 26v-7h14M45 42c-3 4-3 6 0 7 4-1 4-3 0-7z"/>',
+ // Thermometer with waves
+ '<path d="M24 12a5 5 0 0 1 10 0v22a11 11 0 1 1-10 0z"/><path d="M29 21v21M40 21h7M40 28h7M40 35h7"/>',
+ // Battery
+ '<rect x="9" y="18" width="46" height="31" rx="2"/><path d="M17 18v-5h8v5M39 18v-5h8v5M17 33h12M23 27v12M39 33h10"/>',
+ // Brake system exclamation inside circle and brackets
+ '<circle cx="32" cy="32" r="18"/><path d="M32 22v14M32 43v1M10 17C3 26 3 38 10 47M54 17c7 9 7 21 0 30"/>',
+ // ABS circle and brackets
+ '<circle cx="32" cy="32" r="19"/><path d="M10 16C3 25 3 39 10 48M54 16c7 9 7 23 0 32"/><text x="32" y="37" text-anchor="middle" font-size="14" font-family="Arial,sans-serif" font-weight="bold" stroke="none" fill="currentColor">ABS</text>',
+ // TPMS horseshoe tire section with exclamation
+ '<path d="M16 16Q7 24 9 42l7 7h32l7-7q2-18-7-26l-7 8q5 8 4 16H19q-1-8 4-16z"/><path d="M32 26v13M32 44v1"/>',
+ // Generic high voltage: triangle with lightning, not a standardized manufacturer symbol
+ '<path d="M32 7 59 55H5z"/><path d="m35 19-11 17h10l-5 13 13-20H31z"/>',
+ // Coolant thermometer above fluid waves
+ '<path d="M24 11a5 5 0 0 1 10 0v22a10 10 0 1 1-10 0z"/><path d="M29 19v22M7 54q6-5 12 0t12 0t12 0t12 0"/>'
+];
+function buildLights(){
+ const area=$('warningLights');area.replaceChildren();
+ warningData.forEach(([unused,title,desc],i)=>{
+  const card=document.createElement('article');card.className='info-card';
+  const b=document.createElement('div');b.className='warning-icon';
+  const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+  svg.setAttribute('viewBox','0 0 64 64');svg.setAttribute('class','warning-vector');
+  svg.setAttribute('role','img');svg.setAttribute('aria-label',title+' symbol');
+  svg.innerHTML=warningVectors[i];b.append(svg);
+  if([0,2,5,6,7,8].includes(i))b.classList.add('warning-amber');else b.classList.add('warning-red');
+  const h=document.createElement('h4');h.textContent=title;
+  const p=document.createElement('p');p.textContent=desc;card.append(b,h,p);area.append(card);
+ });
+}
 buildLights();
 // Know Your Car: educational guidance for every repair type, not a vehicle-specific parts catalog.
 // Photo lookup is deliberately conservative: never substitute an unrelated image.
@@ -305,3 +340,23 @@ function renderTutorials(key,difficulty){
  const note=document.createElement('p');note.className='fine-print';note.textContent='YouTube search results are not reviewed or endorsed by FixU. Confirm the tutorial matches your exact engine, trim, and model year. Stop if the task requires equipment or skills you do not have.';area.append(note);
 }
 const library=$('videoLibrary');starterTopics.forEach(([name,topic])=>{const a=document.createElement('a');a.href='https://www.youtube.com/results?search_query='+encodeURIComponent(topic+' car tutorial safety');a.target='_blank';a.rel='noopener noreferrer';a.className='resource-link';a.textContent='▶ '+name;library.append(a);});
+
+
+// Persistent top navigation and easy return to top.
+(function setupPageNavigation(){
+  const links=[...document.querySelectorAll('.site-nav .nav-link')];
+  const topButton=document.getElementById('backToTop');
+  if(!links.length||!topButton)return;
+  const sections=[document.getElementById('repairForm'),document.getElementById('warning-lights'),document.getElementById('parts-gallery')];
+  function updateNavigation(){
+    const position=window.scrollY+130;
+    let active=0;
+    sections.forEach((section,i)=>{if(section&&section.getBoundingClientRect().top+window.scrollY<=position)active=i;});
+    links.forEach((link,i)=>{link.classList.toggle('active',i===active);if(i===active)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');});
+    topButton.classList.toggle('visible',window.scrollY>350);
+  }
+  topButton.addEventListener('click',()=>window.scrollTo({top:0,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}));
+  window.addEventListener('scroll',updateNavigation,{passive:true});
+  window.addEventListener('resize',updateNavigation);
+  updateNavigation();
+})();

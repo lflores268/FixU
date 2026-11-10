@@ -1,0 +1,23 @@
+FixU curated photo references (November 2026)
+
+The two local PNG screenshots were supplied by the user. Their underlying copyright status is unknown. The other photographs are embedded by URL and remain on third-party servers. Permission/license has NOT been verified. Before publishing FixU publicly, replace with appropriately licensed photos or obtain permission. Do not assume attribution alone permits reuse.
+
+Additional submitted links NOT USED pending content review:
+https://www.fairwayautomotive.com/wp-content/uploads/2025/03/FW-Auto-Blog-2-scaled.jpeg
+https://www.gilsgarage.com/Files/Documents/AdobeStock_286942688.jpeg
+https://repairpal.com/stored_images/39218?size=webp_1024 (excluded per user request)
+
+Oil filter screenshot: images/oil-filters-example.png
+Tire rotation screenshot: images/tire-rotation-example.png
+
+Correction: check-engine light, spark plugs, engine air filters, coolant system and power steering did not have clearly matched photos in the supplied links. They are intentionally not represented by unrelated images.
+
+Additional user-provided images (reuse rights not yet verified):
+- images/check-engine-dashboard.png — dashboard with multiple illuminated warning indicators, including amber check-engine symbol
+- images/spark-plugs.png — spark plugs
+- images/coolant-system.png — coolant being poured into an open filler neck (not a safe instruction to open hot systems)
+- images/hydraulic-steering.png — power-steering reservoir
+
+Air filter: https://www.morrisontire.com/Files/Images/Blog/AdobeStock_457535501%20(Small).jpeg — user selected; externally hosted, permission and browser loading not verified.
+
+Dashboard warning icon crops: user-supplied 'Your Car’s Dashboard Warning Lights, Decoded' infographic (url.jpeg), origin and reuse license unverified. Confirm rights before public use. EV high-voltage symbol remains generic because supplied chart has no matching symbol.
